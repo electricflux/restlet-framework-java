@@ -45,20 +45,13 @@ import org.restlet.representation.Variant;
 import org.restlet.resource.Resource;
 
 /**
- * Converter between the JSON, JSON Smile, CSV, XML, YAML and Representation
+ * Converter between the JSON, JSON Smile, Representation
  * classes based on Jackson.
  * 
  * @author Jerome Louvel
  * @author Thierry Boileau
  */
 public class JacksonConverter extends ConverterHelper {
-    /** Variant with media type application/xml. */
-    private static final VariantInfo VARIANT_APPLICATION_XML = new VariantInfo(
-            MediaType.APPLICATION_XML);
-
-    /** Variant with media type application/yaml. */
-    private static final VariantInfo VARIANT_APPLICATION_YAML = new VariantInfo(
-            MediaType.APPLICATION_YAML);
 
     /** Variant with media type application/json. */
     private static final VariantInfo VARIANT_JSON = new VariantInfo(
@@ -67,18 +60,6 @@ public class JacksonConverter extends ConverterHelper {
     /** Variant with media type application/x-json-smile. */
     private static final VariantInfo VARIANT_JSON_SMILE = new VariantInfo(
             MediaType.APPLICATION_JSON_SMILE);
-
-    /** Variant with media type text/csv. */
-    private static final VariantInfo VARIANT_TEXT_CSV = new VariantInfo(
-            MediaType.TEXT_CSV);
-
-    /** Variant with media type text/xml. */
-    private static final VariantInfo VARIANT_TEXT_XML = new VariantInfo(
-            MediaType.TEXT_XML);
-
-    /** Variant with media type text/yaml. */
-    private static final VariantInfo VARIANT_TEXT_YAML = new VariantInfo(
-            MediaType.TEXT_YAML);
 
     /**
      * Creates the marshaling {@link JacksonRepresentation}.
@@ -128,11 +109,6 @@ public class JacksonConverter extends ConverterHelper {
         if (source != null) {
             result = addVariant(result, VARIANT_JSON);
             result = addVariant(result, VARIANT_JSON_SMILE);
-            result = addVariant(result, VARIANT_APPLICATION_XML);
-            result = addVariant(result, VARIANT_TEXT_XML);
-            result = addVariant(result, VARIANT_APPLICATION_YAML);
-            result = addVariant(result, VARIANT_TEXT_YAML);
-            result = addVariant(result, VARIANT_TEXT_CSV);
         }
 
         return result;
@@ -150,12 +126,7 @@ public class JacksonConverter extends ConverterHelper {
     protected boolean isCompatible(Variant variant) {
         return (variant != null)
                 && (VARIANT_JSON.isCompatible(variant)
-                        || VARIANT_JSON_SMILE.isCompatible(variant)
-                        || VARIANT_APPLICATION_XML.isCompatible(variant)
-                        || VARIANT_TEXT_XML.isCompatible(variant)
-                        || VARIANT_APPLICATION_YAML.isCompatible(variant)
-                        || VARIANT_TEXT_YAML.isCompatible(variant) || VARIANT_TEXT_CSV
-                        .isCompatible(variant));
+                        || VARIANT_JSON_SMILE.isCompatible(variant));
     }
 
     @Override
@@ -245,11 +216,6 @@ public class JacksonConverter extends ConverterHelper {
             Class<T> entity) {
         updatePreferences(preferences, MediaType.APPLICATION_JSON, 1.0F);
         updatePreferences(preferences, MediaType.APPLICATION_JSON_SMILE, 1.0F);
-        updatePreferences(preferences, MediaType.APPLICATION_XML, 1.0F);
-        updatePreferences(preferences, MediaType.TEXT_XML, 1.0F);
-        updatePreferences(preferences, MediaType.APPLICATION_YAML, 1.0F);
-        updatePreferences(preferences, MediaType.TEXT_YAML, 1.0F);
-        updatePreferences(preferences, MediaType.TEXT_CSV, 1.0F);
     }
 
 }
